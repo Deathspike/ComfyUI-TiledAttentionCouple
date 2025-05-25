@@ -27,6 +27,7 @@ class TiledAttentionCouple:
         negative = encode_with_mask(clip, negative_mask, config.negative_base)
         positive_mask = SolidMask().solid(1.0, width, height)[0]
         positive = encode_with_mask(clip, positive_mask, config.positive_base)
+        requiresAttention = False
         shift = 0
 
         for i, division in enumerate(config.division):
@@ -45,13 +46,18 @@ class TiledAttentionCouple:
 
             if len(config.positive_tiles) > i:
                 positive += encode_with_mask(clip, tile_mask, config.positive_tiles[i])
+                requiresAttention = True
 
             if len(config.negative_tiles) > i:
                 negative += encode_with_mask(clip, tile_mask, config.negative_tiles[i])
+                requiresAttention = True
 
-        return AttentionCouple().attention_couple(
-            model, positive, negative, "Attention"
-        )
+        if requiresAttention:
+            return AttentionCouple().attention_couple(
+                model, positive, negative, "Attention"
+            )
+        
+        return (model, positive, negative)
 
 
 def encode_with_mask(clip, mask, text):
