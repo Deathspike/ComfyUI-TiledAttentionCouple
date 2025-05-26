@@ -1,0 +1,14 @@
+[project]
+name = "comfyui-tiledattentioncouple"
+description = "Custom node for attention coupling across horizontal or vertical tiles in ComfyUI."
+version = "1.0.0"
+license = { file = "LICENSE" }
+dependencies  = []
+
+[project.urls]
+Repository = "https://github.com/Deathspike/ComfyUI-TiledAttentionCouple"
+
+[tool.comfy]
+PublisherId = "deathspike"
+DisplayName = "ComfyUI-TiledAttentionCouple"
+Icon = ""

@@ -4,7 +4,7 @@ _TiledAttentionCouple_ is a custom node for ComfyUI that enables _Attention Coup
 
 [![3girls, side-by-side, upper body, blue sky, masterpiece, best quality, BREAK fate testarossa, straight hair, blue dress, nose blush, averting eyes, BREAK takamachi nanoha, short twintails, red dress, closed eyes, BREAK yagami hayate, white dress, naughty face, smug](previews/banner.png)](workflows/banner.json)
 
-## Install
+## Installation
 
 Navigate to your ComfyUI _custom_nodes_ directory:
 
