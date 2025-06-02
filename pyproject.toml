@@ -1,7 +1,7 @@
 [project]
 name = "comfyui-tiledattentioncouple"
-description = "Custom node for attention coupling across horizontal or vertical tiles in ComfyUI."
-version = "1.0.0"
+description = "TiledAttentionCouple is a custom node for ComfyUI that enables Attention Coupling across horizontal or vertical tiles. It allows fine(r)-grained control of prompts across different sections of the image. This is especially useful in scenarios where multiple subjects or themes need to coexist in an image without blending them."
+version = "1.1.0"
 license = { file = "LICENSE" }
 dependencies  = []
 
