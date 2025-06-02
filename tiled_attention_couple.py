@@ -22,6 +22,7 @@ class TiledAttentionCouple:
     RETURN_NAMES = ("model", "positive", "negative")
 
     def process(self, model, clip, config, width, height):
+        self.validate(model, width, height)
         negative_mask = SolidMask().solid(1.0, width, height)[0]
         negative = self.encode(clip, negative_mask, config.negative_base)
         positive_mask = SolidMask().solid(1.0, width, height)[0]
@@ -63,3 +64,12 @@ class TiledAttentionCouple:
     def encode(clip, mask, text):
         conditioning = CLIPTextEncode().encode(clip, text)[0]
         return ConditioningSetMask().append(conditioning, mask, "default", 1.0)[0]
+
+    @staticmethod
+    def validate(model, width, height):
+        if hasattr(model.model.diffusion_model, "label_emb"):
+            if width % 64 != 0 or height % 64 != 0:
+                raise ValueError(f"Width and height must be divisible by 64.")
+        else:
+            if width % 32 != 0 or height % 32 != 0:
+                raise ValueError(f"Width and height must be divisible by 32.")
