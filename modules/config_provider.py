@@ -1,7 +1,7 @@
-from .tiled_attention_couple_config import TiledAttentionCoupleConfig
+from .core.config import Config
 
 
-class TiledAttentionCouplePrompt:
+class ConfigProvider:
     @classmethod
     def INPUT_TYPES(cls):
         return {
@@ -23,7 +23,7 @@ class TiledAttentionCouplePrompt:
         positive_base, positive_tiles = self.parse_text(positive)
         negative_base, negative_tiles = self.parse_text(negative)
         return (
-            TiledAttentionCoupleConfig(
+            Config(
                 divisions,
                 orientation,
                 positive_base,

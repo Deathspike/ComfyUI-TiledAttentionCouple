@@ -1,7 +1,7 @@
 from math import floor
 
 
-class TiledAttentionCoupleConfig:
+class Config:
     def __init__(
         self,
         divisions,

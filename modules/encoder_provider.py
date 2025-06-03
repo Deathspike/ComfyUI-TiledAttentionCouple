@@ -1,9 +1,10 @@
 from comfy_extras.nodes_mask import MaskComposite, SolidMask
 from nodes import CLIPTextEncode, ConditioningSetMask, MAX_RESOLUTION
-from .attention_couple import AttentionCouple
+from .core.funcs import get_latent_size
+from .externals.attention_couple import AttentionCouple
 
 
-class TiledAttentionCouple:
+class EncoderProvider:
     @classmethod
     def INPUT_TYPES(cls):
         return {
@@ -67,9 +68,8 @@ class TiledAttentionCouple:
 
     @staticmethod
     def validate(model, width, height):
-        if hasattr(model.model.diffusion_model, "label_emb"):
-            if width % 64 != 0 or height % 64 != 0:
-                raise ValueError(f"Width and height must be divisible by 64.")
-        else:
-            if width % 32 != 0 or height % 32 != 0:
-                raise ValueError(f"Width and height must be divisible by 32.")
+        latent_size = get_latent_size(model)
+        if width % latent_size != 0:
+            raise ValueError(f"Width must be divisible by {latent_size}.")
+        if height % latent_size != 0:
+            raise ValueError(f"Height must be divisible by {latent_size}.")
