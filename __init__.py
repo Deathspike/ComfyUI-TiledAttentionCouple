@@ -1,12 +1,15 @@
-from .modules.config_provider import ConfigProvider
-from .modules.encoder_provider import EncoderProvider
+from .modules.integrations.impact_pack.detailer_provider import DetailerProvider
+from .modules.providers.config_provider import ConfigProvider
+from .modules.providers.tiled_provider import TiledProvider
 
 NODE_CLASS_MAPPINGS = {
+    "TiledAttentionCoupleImpactPackDetailer": DetailerProvider,
     "TiledAttentionCouplePrompt": ConfigProvider,
-    "TiledAttentionCouple": EncoderProvider,
+    "TiledAttentionCouple": TiledProvider,
 }
 
 NODE_DISPLAY_NAME_MAPPINGS = {
+    "TiledAttentionCoupleImpactPackDetailer": "Tiled Attention Couple (Impact Pack Detailer)",
     "TiledAttentionCouplePrompt": "Tiled Attention Couple (Config)",
     "TiledAttentionCouple": "Tiled Attention Couple",
 }
