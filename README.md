@@ -4,6 +4,12 @@ _TiledAttentionCouple_ is a custom node for ComfyUI that enables _Attention Coup
 
 [![3girls, side-by-side, upper body, blue sky, masterpiece, best quality, BREAK fate testarossa, straight hair, blue dress, nose blush, averting eyes, BREAK takamachi nanoha, short twintails, red dress, closed eyes, BREAK yagami hayate, white dress, naughty face, smug](previews/banner.png)](workflows/banner.json)
 
+## Changelog
+
+- **1.2** - Added integration for _Impact Pack_ detailers.
+- **1.1** - Improved return names and error feedback.
+- **1.0** - Initial release.
+
 ## Installation
 
 Navigate to your ComfyUI _custom_nodes_ directory:
@@ -26,6 +32,13 @@ Follow these steps to integrate _Tiled Attention Couple_ into your workflow:
 4. Connect _Tiled Attention Couple_ with an input model and clip.
 5. Use _Tiled Attention Couple_ output model and conditionings.
 
+For [**Impact Pack**](https://github.com/ltdrdata/ComfyUI-Impact-Pack) integration with _FaceDetailer_, follow these additional steps:
+
+1. Add _Tiled Attention Couple (Impact Pack Detailer)_.
+2. Connect _Tiled Attention Couple (Impact Pack Detailer)_ to _FaceDetailer_ `detailer_hook`.
+3. Connect _Tiled Attention Couple (Prompt)_ to _Tiled Attention Couple (Impact Pack Detailer)_.
+4. Connect _Tiled Attention Couple (Impact Pack Detailer)_ with an input model and clip.
+
 ## Usage
 
 _TiledAttentionCouple_ slices the image into horizontal or vertical tiles based on your chosen _division_ and _orientation_. The _division_ is a comma-seperated string representing each tile, where each number represents the relative size of that specific tile:
@@ -45,7 +58,7 @@ Prompts start with a _common prompt_ that applies to the entire image. After thi
 
 All previews come with ComfyUI workflows for reference and reproducibility. The showcased results were generated using my [NanoMix v13](https://civitai.com/models/932505/nanomix-multiverse-remix?modelVersionId=1765702) model.
 
-### Nanoha x Fate
+### `2girls`
 
     2girls, side-by-side,
     masterpiece, best quality,
@@ -60,7 +73,7 @@ The _common prompt_ `2girls, side-by-side, masterpiece, best quality` is applied
 
 [![2girls, side-by-side, masterpiece, best quality, BREAK takamachi nanoha, short twintails, red dress, BREAK fate testarossa, straight hair, blue dress](previews/nanoha-fate.png)](workflows/nanoha-fate.json)
 
-### Nanoha x Fate x Hayate
+### `3girls`
 
     3girls, side-by-side,
     masterpiece, best quality,
@@ -78,7 +91,23 @@ The _common prompt_ `3girls, side-by-side, masterpiece, best quality` is applied
 
 [![3girls, side-by-side, masterpiece, best quality, BREAK takamachi nanoha, short twintails, red dress, BREAK fate testarossa, straight hair, blue dress, BREAK yagami hayate, white dress](previews/nanoha-fate-hayate.png)](workflows/nanoha-fate-hayate.json)
 
-### Nanoha x Fate x Hayate (Banner)
+### `3girls` with _FaceDetailer_
+
+    2girls,
+    maid, cafe,
+    masterpiece, best quality,
+    BREAK
+    takamachi nanoha, short twintails, 
+    light smile,
+    BREAK
+    fate testarossa, straight hair, 
+    nose blush, 
+
+The _common prompt_ `2girls, maid, cafe, masterpiece, best quality` is applied to the entire image. Using a division of `1,1` and _horizontal orientation_, the left tile receives the _tile prompt_ `takamachi nanoha, short twintails, light smile`, while the right tile receives `fate testarossa, straight hair, nose blush`. Faces are then improved with _FaceDetailer_:
+
+[![2girls, maid, cafe, masterpiece, best quality, BREAK takamachi nanoha, short twintails, light smile, BREAK fate testarossa, straight hair, nose blush](previews/integrations/impact_pack/face-detailer.png)](workflows/integrations/impact_pack/face-detailer.json)
+
+### `3girls` (Banner)
 
     3girls, side-by-side, upper body, 
     blue sky, 
