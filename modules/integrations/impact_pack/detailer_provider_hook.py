@@ -41,7 +41,7 @@ class DetailerProviderHook(DetailerHook):
         inner = Tile(x1, x2, y1, y2)
 
         model, positive, negative = AttentionCouple().attention_couple(
-            self.model, *self.config.process(self.clip, outer, inner)
+            model, *self.config.process(self.clip, outer, inner)
         )
 
         return (
@@ -56,3 +56,8 @@ class DetailerProviderHook(DetailerHook):
             latent_image,
             denoise,
         )
+
+    def touch_scaled_size(self, w, h):
+        w -= w % self.latent_size
+        h -= h % self.latent_size
+        return w, h
