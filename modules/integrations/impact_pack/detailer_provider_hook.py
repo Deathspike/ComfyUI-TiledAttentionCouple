@@ -34,13 +34,10 @@ class DetailerProviderHook(DetailerHook):
         latent_image,
         denoise,
     ):
-        x1, y1, x2, y2 = self.regions.pop(0)
-        outer = Tile(0, self.shape[1], 0, self.shape[0])
-        inner = Tile(x1, x2, y1, y2)
-
-        model, positive, negative = AttentionCouple().attention_couple(
-            model, *self.config.process(self.clip, outer, inner)
-        )
+        inner = Tile(*self.regions.pop(0))
+        outer = Tile(0, 0, self.shape[1], self.shape[0])
+        value = self.config.process(self.clip, outer, inner)
+        model, positive, negative = AttentionCouple().attention_couple(model, *value)
 
         return (
             model,

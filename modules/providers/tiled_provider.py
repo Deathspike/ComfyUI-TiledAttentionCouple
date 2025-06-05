@@ -24,7 +24,7 @@ class TiledProvider:
 
     def process(self, model, clip, config, width, height):
         self.validate(model, width, height)
-        tile = Tile(0, width, 0, height)
+        tile = Tile(0, 0, width, height)
         positive, negative, mode = config.process(clip, tile, tile)
         return AttentionCouple().attention_couple(model, positive, negative, mode)
 

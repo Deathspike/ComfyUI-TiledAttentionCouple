@@ -35,11 +35,11 @@ class Config:
             if self.orientation == "horizontal":
                 base_size = floor(outer.width * (1.0 * div / sum(self.divisions)))
                 size = outer.width - shift if is_end else base_size
-                tile = Tile(shift, shift + size, 0, outer.height).overlap(inner)
+                tile = Tile(shift, 0, shift + size, outer.height).overlap(inner)
             else:
                 base_size = floor(outer.height * (1.0 * div / sum(self.divisions)))
                 size = outer.height - shift if is_end else base_size
-                tile = Tile(0, outer.width, shift, shift + size).overlap(inner)
+                tile = Tile(0, shift, outer.width, shift + size).overlap(inner)
 
             if tile is not None:
                 x = tile.x1 - inner.x1
