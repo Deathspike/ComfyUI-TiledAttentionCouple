@@ -1,3 +1,4 @@
+from ...core.funcs import get_latent_size
 from .detailer_provider_hook import DetailerProviderHook
 
 
@@ -18,4 +19,5 @@ class DetailerProvider:
     RETURN_NAMES = ("detailer_hook",)
 
     def process(self, model, clip, config):
-        return (DetailerProviderHook(model, clip, config),)
+        latent_size = get_latent_size(model)
+        return (DetailerProviderHook(latent_size, clip, config),)

@@ -1,13 +1,11 @@
 from ...attention_couple import AttentionCouple
-from ...core.funcs import get_latent_size
 from ...core.tile import Tile
 from .externals.detailer_hook import DetailerHook
 
 
 class DetailerProviderHook(DetailerHook):
-    def __init__(self, model, clip, config):
-        self.latent_size = get_latent_size(model)
-        self.model = model
+    def __init__(self, latent_size, clip, config):
+        self.latent_size = latent_size
         self.clip = clip
         self.config = config
 
