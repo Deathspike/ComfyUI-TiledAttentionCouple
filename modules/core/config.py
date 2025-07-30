@@ -1,6 +1,7 @@
 from comfy_extras.nodes_mask import MaskComposite, SolidMask
 from math import floor
 from nodes import CLIPTextEncode, ConditioningSetMask
+from torch import cat, zeros
 from .tile import Tile
 
 
@@ -59,9 +60,23 @@ class Config:
 
             shift += size
 
+        self.pad(positive)
+        self.pad(negative)
         return (positive, negative, mode)
 
     @staticmethod
     def encode(clip, mask, text):
         conditioning = CLIPTextEncode().encode(clip, text)[0]
         return ConditioningSetMask().append(conditioning, mask, "default", 1.0)[0]
+
+    @staticmethod
+    def pad(conditioning_mask):
+        tokens = [conditioning[0].shape[1] for conditioning in conditioning_mask]
+        tokens_max = max(tokens)
+        for conditioning in conditioning_mask:
+            tensor = conditioning[0]
+            shape = tensor.shape
+            if shape[1] != tokens_max:
+                tokens_pad = tokens_max - shape[1]
+                tensor_pad = zeros(shape[0], tokens_pad, shape[2], device=tensor.device)
+                conditioning[0] = cat([tensor, tensor_pad], dim=1)
