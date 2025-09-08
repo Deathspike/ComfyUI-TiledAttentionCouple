@@ -5,7 +5,7 @@ class PixelKSampleHook:
     def post_decode(self, pixels):
         return pixels
 
-    def post_upscale(self, pixels):
+    def post_upscale(self, pixels, mask=None):
         return pixels
 
     def post_encode(self, samples):
