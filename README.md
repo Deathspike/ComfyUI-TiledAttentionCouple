@@ -6,6 +6,7 @@ _TiledAttentionCouple_ is a custom node for ComfyUI that enables _Attention Coup
 
 ## Changelog
 
+- **1.3** - Added _optional_ tile shuffling.
 - **1.2** - Added integration for _Impact Pack_ detailers.
 - **1.1** - Improved return names and error feedback.
 - **1.0** - Initial release.
