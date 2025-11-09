@@ -50,11 +50,11 @@ class Config:
                 tile_mask = SolidMask().solid(1.0, tile.width, tile.height)[0]
                 mask = MaskComposite().combine(base_mask, tile_mask, x, y, "add")[0]
 
-                if len(self.positive_tiles) > i:
+                if len(self.positive_tiles) > i and len(self.positive_tiles[i]):
                     positive += self.encode(clip, mask, self.positive_tiles[i])
                     mode = "Attention"
 
-                if len(self.negative_tiles) > i:
+                if len(self.negative_tiles) > i and len(self.negative_tiles[i]):
                     negative += self.encode(clip, mask, self.negative_tiles[i])
                     mode = "Attention"
 

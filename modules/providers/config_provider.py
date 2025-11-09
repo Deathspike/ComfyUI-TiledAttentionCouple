@@ -1,3 +1,4 @@
+from random import Random
 from ..core.config import Config
 
 
@@ -10,7 +11,10 @@ class ConfigProvider:
                 "orientation": (["horizontal", "vertical"], {"default": "vertical"}),
                 "positive": ("STRING", {"multiline": True, "dynamicPrompts": True}),
                 "negative": ("STRING", {"multiline": True, "dynamicPrompts": True}),
-            }
+            },
+            "optional": {
+                "shuffle": ("TILED_SHUFFLE", {"tooltip": "An optional tile shuffle."}),
+            },
         }
 
     CATEGORY = "conditioning"
@@ -18,10 +22,15 @@ class ConfigProvider:
     RETURN_TYPES = ("TILED_CONFIG",)
     RETURN_NAMES = ("config",)
 
-    def process(self, division, orientation, positive, negative):
+    def process(self, division, orientation, positive, negative, shuffle=None):
         divisions = [float(x.strip()) for x in division.split(",")]
-        positive_base, positive_tiles = self.parse_text(positive)
-        negative_base, negative_tiles = self.parse_text(negative)
+        positive_base, positive_tiles = self.parse_text(positive, len(divisions))
+        negative_base, negative_tiles = self.parse_text(negative, len(divisions))
+
+        if shuffle is not None:
+            Random(shuffle).shuffle(positive_tiles)
+            Random(shuffle).shuffle(negative_tiles)
+
         return (
             Config(
                 divisions,
@@ -34,7 +43,8 @@ class ConfigProvider:
         )
 
     @staticmethod
-    def parse_text(value):
+    def parse_text(value, number_of_divisions):
         parts = [part.strip() for part in value.split("BREAK")]
         tiles = parts[1:] if len(parts) > 1 else []
+        tiles = (tiles + [""] * number_of_divisions)[:number_of_divisions]
         return (parts[0], tiles)
