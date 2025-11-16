@@ -50,8 +50,8 @@ _TiledAttentionCouple_ slices the image into horizontal or vertical tiles based 
 
 The _orientation_ determines how the tiles are divided: _horizontal_ places tiles side by side (left to right), while _vertical_ stacks them on top of each other (top to bottom):
 
-* `1,2` _horizontal_ → bottom tile is twice as large as the top tile.
-* `1,2` _vertical_ → right tile is twice as large as the left tile.
+* `1,2` _horizontal_ → right tile is twice as large as the left tile.
+* `1,2` _vertical_ → bottom tile is twice as large as the top tile.
 
 Prompts start with a _common prompt_ that applies to the entire image. After this, you can add _tile prompts_ by separating them with the keyword `BREAK`. Each `BREAK` corresponds to a tile in sequential order, from left to right (for _horizontal_) or top to bottom (for _vertical_).
 
